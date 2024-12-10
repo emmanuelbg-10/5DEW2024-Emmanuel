@@ -50,7 +50,7 @@ function showProv(provincia) {
   provincia.provincias.forEach((prov) => {
     const option = document.createElement("option");
     option.textContent = prov.NOMBRE_PROVINCIA;
-    option.id = prov.CODPROV;
+    option.value = prov.CODPROV;
     selectProvincias.append(option);
   });
 }
@@ -58,7 +58,7 @@ function showProv(provincia) {
 selectProvincias.addEventListener("change", (e) => {
   wait.textContent = "Cargando...";
   // Obtengo el id de la opción seleccionada usando selectedIndex
-  idProv = e.target.options[e.target.selectedIndex].id;
+  idProv = e.target.value;
   fetch(urlAPI + "provincias/" + idProv)
     .then((res) => res.json())
     .then((infoProv) => {
@@ -90,7 +90,6 @@ function showInfoProv(infoProv) {
 
 function showMun(mun) {
   selectMunicipios.innerHTML = `<option value="" disabled selected>Elige un municipio</option>`;
-  console.log(mun.municipios);
   mun.municipios.forEach((muni) => {
     const option = document.createElement("option");
     option.textContent = muni.NOMBRE;
@@ -104,7 +103,7 @@ selectMunicipios.addEventListener("change", (e) => {
   wait.textContent = "Cargando...";
   // Obtengo el id de la opción seleccionada usando selectedIndex
   idMun = e.target.options[e.target.selectedIndex].id;
-  console.log(urlAPI + "provincias/" + idProv + "/municipios/" + idMun);
+  // console.log(urlAPI + "provincias/" + idProv + "/municipios/" + idMun);
   fetch(urlAPI + "provincias/" + idProv + "/municipios/" + idMun)
     .then((res) => res.json())
     .then((infoMun) => {
@@ -118,7 +117,7 @@ selectMunicipios.addEventListener("change", (e) => {
 
 function showInfoMun(infoMun) {
   h1.textContent = infoMun.municipio.NOMBRE;
-  console.log(infoMun);
+  // console.log(infoMun);
 
   p1.innerHTML =
     infoMun.stateSky.description +
